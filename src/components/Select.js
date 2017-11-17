@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import { changeOption } from '../actions';
 
 class Select extends Component {
+  onSelect(val) {
+    this.props.changeOption(val);
+  }
+
   render() {
-    let { options, onSelect } = this.props;
+    let { options } = this.props;
 
     return (
       <select
-        onChange={(evt) => onSelect(evt.target.value)}
+        onChange={(evt) => this.onSelect(evt.target.value)}
       >
         {
           options.map((item, index) => {
@@ -25,4 +32,14 @@ class Select extends Component {
   }
 }
 
-export default Select;
+function mapStateToProps(props) {
+  return {};
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    changeOption: (newCounter) => dispatch(changeOption(newCounter))
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Select);

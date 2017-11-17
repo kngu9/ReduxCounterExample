@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import NumberDisplay from './components/NumberDisplay';
 import Select from './components/Select';
@@ -8,11 +9,7 @@ import './App.css';
 
 class App extends Component {
   state = {
-    curOption: 'a',
-    counters: {
-      'a': 0,
-      'b': 0
-    }
+    curOption: 'a'
   };
 
   onIncrement() {
@@ -34,7 +31,7 @@ class App extends Component {
   }
 
   render() {
-    let { a, b } = this.state.counters;
+    let { a, b } = this.props.counter;
 
     return (
       <div className="App">
@@ -63,4 +60,10 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    counter: state.counter
+  };
+}
+
+export default connect(mapStateToProps)(App);

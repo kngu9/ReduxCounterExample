@@ -1,21 +1,30 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import './Adjuster.css';
+import { changeCounter } from '../actions';
 
 class Adjuster extends Component {
-  render() {
-    let { onIncrement, onDecrement } = this.props;
+  onIncrement() {
+    this.props.changeCounter(this.props.options.curOption, true);
+  }
 
+  onDecrement() {
+    this.props.changeCounter(this.props.options.curOption, false);
+  }
+  
+  render() {
     return (
       <div className='adjuster'>
         <button
           className='button'
-          onClick={ onIncrement }
+          onClick={ () => this.onIncrement() }
         >
           Increase
         </button>
         <button
           className='button'
-          onClick={ onDecrement }
+          onClick={ () => this.onDecrement() }
         >
           Decrease
       </button>
@@ -24,4 +33,16 @@ class Adjuster extends Component {
   }
 }
 
-export default Adjuster;
+function mapStateToProps(state) {
+  return {
+    options: state.options
+  }
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    changeCounter: (counterType, increment) => dispatch(changeCounter(counterType, increment))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Adjuster);
