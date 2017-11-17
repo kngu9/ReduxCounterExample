@@ -1,0 +1,11 @@
+.adjuster {
+  margin-top: 20px;
+}
+
+.button {
+  padding: 5px;
+}
+
+.button:last-child {
+  margin-left: 5px;
+}
